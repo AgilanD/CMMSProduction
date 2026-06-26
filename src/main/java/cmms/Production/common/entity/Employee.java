@@ -1,6 +1,7 @@
-package cmms.Production.entity;
+package cmms.Production.common.entity;
 
 
+import cmms.Production.common.entity.Plants;
 import cmms.Production.utils.AuditContextHolder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;

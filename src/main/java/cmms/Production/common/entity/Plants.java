@@ -1,4 +1,4 @@
-package cmms.Production.entity;
+package cmms.Production.common.entity;
 
 import cmms.Production.utils.AuditContextHolder;
 import jakarta.persistence.*;

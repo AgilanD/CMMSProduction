@@ -2,10 +2,10 @@ package cmms.Production.service;
 
 import cmms.Production.Dto.QualityInspectionRequestDto;
 import cmms.Production.Dto.QualityInspectionResponseDto;
-import cmms.Production.entity.Employee;
+import cmms.Production.common.entity.Employee;
 import cmms.Production.entity.ProductionOrder;
 import cmms.Production.entity.QualityInspection;
-import cmms.Production.repository.EmployeeRepository;
+import cmms.Production.common.entity.repository.EmployeeRepository;
 import cmms.Production.repository.ProductionOrderRepository;
 import cmms.Production.repository.QualityInspectionRepository;
 import cmms.Production.utils.QualityInspectionMapper;

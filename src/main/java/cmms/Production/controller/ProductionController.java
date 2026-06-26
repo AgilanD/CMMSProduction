@@ -9,6 +9,7 @@ import cmms.Production.service.QualityInspectionService;
 import cmms.Production.service.VehicleInventoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class ProductionController {
     }
 
     @GetMapping("/GetAllVehicle")
+    @PreAuthorize("hasRole('PLANT_MANAGER')")
     public List<VehicleInventoryResponseDto> getAlls() {
         return Vehicleservice.getAllVehicles();
     }
