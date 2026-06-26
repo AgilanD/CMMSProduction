@@ -1,7 +1,5 @@
-package cmms.Production.entity;
+package cmms.Production.common.entity;
 
-import cmms.Production.common.entity.CarModule;
-import cmms.Production.common.entity.Plants;
 import cmms.Production.utils.AuditContextHolder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,51 +11,36 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "production_orders")
+@Table(name = "plants")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductionOrder {
+public class Plants {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @org.hibernate.annotations.GeneratedColumn(value = "'ORD-' || id")
-    @Column(name = "order_number", nullable = false, unique = true, insertable = false, updatable = false)
-    private String orderNumber;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "plant_id", nullable = false)
-    private Plants plant;
+    @Column(nullable = false, unique = true)
+    private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "car_model_id", nullable = false)
-    private CarModule carModel;
-
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OrderStatus status;
+    private String location;
 
-    @Column(name = "target_quantity", nullable = false)
-    private Integer targetQuantity;
+    @Column(name = "capacity_per_day", nullable = false)
+    private Integer capacityPerDay;
 
     @Builder.Default
-    @Column(name = "completed_quantity", nullable = false)
-    private Integer completedQuantity = 0;
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "expected_end_date", nullable = false)
-    private LocalDate expectedEndDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "actual_end_date")
-    private LocalDate actualEndDate;
 
     @CreatedDate
 //    @Builder.Default
@@ -94,10 +77,5 @@ public class ProductionOrder {
         this.lastModifiedBy = AuditContextHolder.getCurrentUserId();
     }
 
-
-
-    public enum OrderStatus {
-        PENDING, IN_PROGRESS, COMPLETED, CANCELLED
-    }
-
 }
+

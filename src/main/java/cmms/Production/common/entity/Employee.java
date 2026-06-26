@@ -1,9 +1,10 @@
-package cmms.Production.entity;
+package cmms.Production.common.entity;
 
-import cmms.Production.common.entity.CarModule;
+
 import cmms.Production.common.entity.Plants;
 import cmms.Production.utils.AuditContextHolder;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,47 +18,48 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "production_orders")
+@Table(name = "employees")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class ProductionOrder {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @org.hibernate.annotations.GeneratedColumn(value = "'ORD-' || id")
-    @Column(name = "order_number", nullable = false, unique = true, insertable = false, updatable = false)
-    private String orderNumber;
+    @Column(name = "employee_code", nullable = false, unique = true, updatable = false)
+    private String employeeCode;
+
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "plant_id", nullable = false)
     private Plants plant;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "car_model_id", nullable = false)
-    private CarModule carModel;
-
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OrderStatus status;
+    private String designation;
 
-    @Column(name = "target_quantity", nullable = false)
-    private Integer targetQuantity;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
 
+    @Past(message = "Joining date cannot be a future date")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "joining_date", nullable = false)
+    private LocalDate joiningDate;
+
+
+    @Column(name = "profile_image")
+    private String profileImage;
+
+    @Column(name = "is_active", nullable = false)
     @Builder.Default
-    @Column(name = "completed_quantity", nullable = false)
-    private Integer completedQuantity = 0;
+    private Boolean isActive = true;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "expected_end_date", nullable = false)
-    private LocalDate expectedEndDate;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "actual_end_date")
-    private LocalDate actualEndDate;
 
     @CreatedDate
 //    @Builder.Default
@@ -96,8 +98,5 @@ public class ProductionOrder {
 
 
 
-    public enum OrderStatus {
-        PENDING, IN_PROGRESS, COMPLETED, CANCELLED
-    }
 
 }
