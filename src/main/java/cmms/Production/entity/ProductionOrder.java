@@ -1,5 +1,6 @@
 package cmms.Production.entity;
 
+import cmms.Production.utils.AuditContextHolder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +27,7 @@ public class ProductionOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Generated
+    @org.hibernate.annotations.GeneratedColumn(value = "'ORD-' || id")
     @Column(name = "order_number", nullable = false, unique = true, insertable = false, updatable = false)
     private String orderNumber;
 
@@ -57,35 +58,40 @@ public class ProductionOrder {
     @Column(name = "actual_end_date")
     private LocalDate actualEndDate;
 
-
-
     @CreatedDate
-    @Builder.Default
+//    @Builder.Default
     @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT '2026-06-23 19:54:30'")
-    private LocalDateTime createdAt = LocalDateTime.parse("2026-06-23T19:54:30");
+    private LocalDateTime createdAt;
 
     @CreatedBy
-    @Builder.Default
+//    @Builder.Default
     @Column(name = "created_by", nullable = false, columnDefinition = "BIGINT DEFAULT 1")
-    private Long createdBy = 1L;
+    private Long createdBy;
 
     @LastModifiedDate
-    @Builder.Default
+//    @Builder.Default
     @Column(name = "last_modified_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT '2026-06-23 19:54:30'")
-    private LocalDateTime lastModifiedAt = LocalDateTime.parse("2026-06-23T19:54:30");
+    private LocalDateTime lastModifiedAt;
 
     @LastModifiedBy
-    @Builder.Default
+//    @Builder.Default
     @Column(name = "last_modified_by", nullable = false, columnDefinition = "BIGINT DEFAULT 1")
-    private Long lastModifiedBy = 1L;
+    private Long lastModifiedBy;
 
 
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.lastModifiedAt = LocalDateTime.now();
+        this.createdBy = AuditContextHolder.getCurrentUserId();
+        this.lastModifiedBy = AuditContextHolder.getCurrentUserId();
+    }
 
-
-
-
-
-
+    @PreUpdate
+    protected void onUpdate() {
+        this.lastModifiedAt = LocalDateTime.now();
+        this.lastModifiedBy = AuditContextHolder.getCurrentUserId();
+    }
 
 
 
