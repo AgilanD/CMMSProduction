@@ -2,10 +2,10 @@ package cmms.Production.service;
 
 import cmms.Production.Dto.VehicleInventoryRequestDto;
 import cmms.Production.Dto.VehicleInventoryResponseDto;
-import cmms.Production.entity.CarModule;
+import cmms.Production.common.entity.CarModule;
 import cmms.Production.entity.ProductionOrder;
 import cmms.Production.entity.VehicleInventory;
-import cmms.Production.repository.CarModuleRepository;
+import cmms.Production.common.entity.repository.CarModuleRepository;
 import cmms.Production.repository.ProductionOrderRepository;
 import cmms.Production.repository.VehicalInventoryRepository;
 import cmms.Production.utils.VehicleInventoryMapper;

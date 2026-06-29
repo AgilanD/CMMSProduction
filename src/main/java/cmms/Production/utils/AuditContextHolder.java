@@ -50,4 +50,5 @@ public class AuditContextHolder {
     public static void clear() {
         currentUser.remove();
     }
+
 }
