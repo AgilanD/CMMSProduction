@@ -79,20 +79,6 @@ public class CarModule {
     private Long lastModifiedBy;
 
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.lastModifiedAt = LocalDateTime.now();
-        this.createdBy = Long.valueOf(GatewayHeaderAuthFilter.username);
-        this.lastModifiedBy = Long.valueOf(cmms.MasterData.security.GatewayHeaderAuthFilter.username);
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.lastModifiedAt = LocalDateTime.now();
-        this.lastModifiedBy = Long.valueOf(GatewayHeaderAuthFilter.username);
-    }
-
 
     public enum FuelType {
         PETROL, DIESEL, ELECTRIC, HYBRID

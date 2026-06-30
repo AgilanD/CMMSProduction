@@ -71,19 +71,19 @@ public class QualityInspection {
     @Column(name = "last_modified_by", nullable = false, columnDefinition = "BIGINT DEFAULT 1")
     private Long lastModifiedBy;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.lastModifiedAt = LocalDateTime.now();
-        this.createdBy = Long.valueOf(GatewayHeaderAuthFilter.username);
-        this.lastModifiedBy = Long.valueOf(GatewayHeaderAuthFilter.username);
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.lastModifiedAt = LocalDateTime.now();
-        this.lastModifiedBy = Long.valueOf(GatewayHeaderAuthFilter.username);
-    }
+//    @PrePersist
+//    protected void onCreate() {
+//        this.createdAt = LocalDateTime.now();
+//        this.lastModifiedAt = LocalDateTime.now();
+//        this.createdBy = Long.valueOf(GatewayHeaderAuthFilter.username);
+//        this.lastModifiedBy = Long.valueOf(GatewayHeaderAuthFilter.username);
+//    }
+//
+//    @PreUpdate
+//    protected void onUpdate() {
+//        this.lastModifiedAt = LocalDateTime.now();
+//        this.lastModifiedBy = Long.valueOf(GatewayHeaderAuthFilter.username);
+//    }
 
 
     public enum InspectionResult {

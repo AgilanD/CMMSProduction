@@ -18,17 +18,15 @@ import java.util.stream.Collectors;
 @Component
 public class GatewayHeaderAuthFilter extends OncePerRequestFilter {
 
-    public static String username = "1";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
 
-        username = request.getHeader("X-User-Name");
+        String username = request.getHeader("X-User-Name");
         String rolesHeader = request.getHeader("X-User-Roles");
 
-        System.out.println("UserName:-"+ username );
-        System.out.println("UserROle"+ rolesHeader );
 
         if (username != null && rolesHeader != null) {
 
@@ -37,13 +35,14 @@ public class GatewayHeaderAuthFilter extends OncePerRequestFilter {
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
 
-            System.out.println("SecurityContext======>"+authorities);
+            UserContext.setUserId(Long.valueOf(username.trim()));
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(username, null, authorities);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
 
         filterChain.doFilter(request, response);
     }

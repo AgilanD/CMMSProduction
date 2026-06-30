@@ -43,9 +43,7 @@ public class ProductionController {
 
     @PutMapping("/AddVehicle/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public VehicleInventoryResponseDto update(
-            @PathVariable Long id,
-            @Valid @RequestBody VehicleInventoryRequestDto requestDto) {
+    public VehicleInventoryResponseDto update(@PathVariable Long id, @Valid @RequestBody VehicleInventoryRequestDto requestDto) {
         return Vehicleservice.updateVehicle(id, requestDto);
     }
 
