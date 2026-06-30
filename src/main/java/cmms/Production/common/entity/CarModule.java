@@ -1,6 +1,6 @@
 package cmms.Production.common.entity;
 
-import cmms.Production.utils.AuditContextHolder;
+import cmms.MasterData.security.GatewayHeaderAuthFilter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -78,20 +78,6 @@ public class CarModule {
     @Column(name = "last_modified_by", nullable = false, columnDefinition = "BIGINT DEFAULT 1")
     private Long lastModifiedBy;
 
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.lastModifiedAt = LocalDateTime.now();
-        this.createdBy = AuditContextHolder.getCurrentUserId();
-        this.lastModifiedBy = AuditContextHolder.getCurrentUserId();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.lastModifiedAt = LocalDateTime.now();
-        this.lastModifiedBy = AuditContextHolder.getCurrentUserId();
-    }
 
 
     public enum FuelType {

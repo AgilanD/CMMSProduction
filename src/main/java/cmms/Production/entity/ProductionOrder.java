@@ -1,8 +1,8 @@
 package cmms.Production.entity;
 
+import cmms.MasterData.security.GatewayHeaderAuthFilter;
 import cmms.Production.common.entity.CarModule;
 import cmms.Production.common.entity.Plants;
-import cmms.Production.utils.AuditContextHolder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -80,19 +80,19 @@ public class ProductionOrder {
     private Long lastModifiedBy;
 
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.lastModifiedAt = LocalDateTime.now();
-        this.createdBy = AuditContextHolder.getCurrentUserId();
-        this.lastModifiedBy = AuditContextHolder.getCurrentUserId();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.lastModifiedAt = LocalDateTime.now();
-        this.lastModifiedBy = AuditContextHolder.getCurrentUserId();
-    }
+//    @PrePersist
+//    protected void onCreate() {
+//        this.createdAt = LocalDateTime.now();
+//        this.lastModifiedAt = LocalDateTime.now();
+//        this.createdBy = Long.valueOf(GatewayHeaderAuthFilter.username);
+//        this.lastModifiedBy =Long.valueOf(GatewayHeaderAuthFilter.username);
+//    }
+//
+//    @PreUpdate
+//    protected void onUpdate() {
+//        this.lastModifiedAt = LocalDateTime.now();
+//        this.lastModifiedBy = Long.valueOf(GatewayHeaderAuthFilter.username);
+//    }
 
 
 
